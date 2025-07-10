@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Portfolio Profile</title>
+  <style>
+    /* CSS Variables for theme colors and spacing */
+    :root {
+      --color-bg: #ffffff;
+      --color-primary: #111827;
+      --color-secondary: #6b7280;
+      --color-accent: #1f2937;
+      --color-accent-hover: #374151;
+      --color-border: #e5e7eb;
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      --radius: 0.75rem;
+      --shadow: rgba(0, 0, 0, 0.08);
+      --transition: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* Reset and base */
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: var(--font-sans);
+      background-color: var(--color-bg);
+      color: var(--color-secondary);
+      font-size: 18px;
+      line-height: 1.6;
+      scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    a {
+      color: var(--color-secondary);
+      text-decoration: none;
+      transition: color var(--transition);
+    }
+    a:hover,
+    a:focus {
+      color: var(--color-accent);
+      outline: none;
+    }
+
+    /* Container */
+    .container {
+      max-width: 1200px;
+      margin-left: auto;
+      margin-right: auto;
+      padding-left: 1.25rem;
+      padding-right: 1.25rem;
+    }
+
+    /* Header / Navigation */
+    header {
+      position: sticky;
+      top: 0;
+      background-color: var(--color-bg);
+      border-bottom: 1px solid var(--color-border);
+      z-index: 1000;
+      box-shadow: 0 2px 8px var(--shadow);
+      backdrop-filter: saturate(180%) blur(8px);
+      transition: background-color 0.25s ease;
+    }
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 5rem;
+    }
+    nav .logo {
+      font-size: 1.75rem;
+      font-weight: 800;
+      color: var(--color-primary);
+      user-select: none;
+      letter-spacing: -0.02em;
+      cursor: default;
+      font-style: italic;
+    }
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 2rem;
+      margin: 0;
+      padding: 0;
+    }
+    nav ul li a {
+      font-weight: 600;
+      font-size: 1.1rem;
+      padding: 0.25rem 0.75rem;
+      border-radius: var(--radius);
+      transition: background-color var(--transition), color var(--transition), transform var(--transition);
+      user-select: none;
+    }
+    nav ul li a:hover,
+    nav ul li a:focus-visible {
+      background-color: var(--color-accent-hover);
+      color: #fff;
+      outline-offset: 3px;
+      transform: scale(1.05);
+      font-weight: 700;
+    }
+
+    /* Hero Section with gradient overlay */
+    .hero {
+      position: relative;
+      padding-top: 6rem;
+      padding-bottom: 5rem;
+      text-align: center;
+      color: var(--color-primary);
+      background: linear-gradient(135deg, #e0e7ff 20%, #fef3c7 80%);
+      border-radius: var(--radius);
+      box-shadow: 0 6px 18px rgba(59, 130, 246, 0.12);
+      margin-bottom: 3.5rem;
+      max-width: 900px;
+      margin-left: auto;
+      margin-right: auto;
+      user-select: none;
+    }
+    .hero h1 {
+      font-weight: 800;
+      font-size: 4.5rem;
+      margin-bottom: 1rem;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      color: var(--color-primary);
+      text-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+    .hero p {
+      font-size: 1.4rem;
+      color: var(--color-secondary);
+      margin-bottom: 2.5rem;
+      max-width: 520px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.45;
+    }
+    .hero .btn-primary {
+      background-color: var(--color-primary);
+      color: #fff;
+      border: none;
+      padding: 1.1rem 3rem;
+      font-size: 1.3rem;
+      font-weight: 700;
+      border-radius: var(--radius);
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(17, 24, 39, 0.2);
+      transition: background-color var(--transition), transform var(--transition), box-shadow var(--transition);
+      user-select: none;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    }
+    .hero .btn-primary:hover,
+    .hero .btn-primary:focus-visible {
+      background-color: var(--color-accent-hover);
+      transform: scale(1.07);
+      box-shadow: 0 10px 30px rgba(30, 41, 59, 0.35);
+      outline-offset: 4px;
+    }
+
+    /* Profile Card */
+    .profile-card {
+      background-color: #f9fafb;
+      border-radius: var(--radius);
+      box-shadow: 0 8px 24px rgba(31, 41, 55, 0.1);
+      max-width: 420px;
+      margin: 0 auto 4.5rem;
+      padding: 3rem 2.5rem 3.5rem 2.5rem;
+      text-align: center;
+      transition: box-shadow 0.4s;
+      user-select: none;
+    }
+    .profile-card:hover,
+    .profile-card:focus-within {
+      box-shadow: 0 12px 32px rgba(31, 41, 55, 0.18);
+      transform: translateY(-4px);
+    }
+    .profile-photo {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 10px 30px rgba(59, 130, 246, 0.18);
+      border: 4px solid #fff;
+      transition: box-shadow 0.4s;
+    }
+    .profile-photo:hover,
+    .profile-photo:focus-visible {
+      box-shadow: 0 15px 40px rgba(59, 130, 246, 0.35);
+      outline: none;
+    }
+    .profile-name {
+      font-size: 2.8rem;
+      font-weight: 800;
+      color: var(--color-primary);
+      margin-bottom: 0.5rem;
+      letter-spacing: -0.02em;
+    }
+    .profile-title {
+      font-size: 1.25rem;
+      color: var(--color-accent);
+      margin-bottom: 1.4rem;
+      font-weight: 600;
+    }
+    .profile-bio {
+      font-size: 1.05rem;
+      color: var(--color-secondary);
+      margin-bottom: 2.2rem;
+      line-height: 1.5;
+      padding: 0 0.8rem;
+    }
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 1.75rem;
+      user-select: none;
+    }
+    .social-links a {
+      display: inline-flex;
+      width: 42px;
+      height: 42px;
+      color: var(--color-accent);
+      border-radius: 50%;
+      border: 1.5px solid var(--color-border);
+      align-items: center;
+      justify-content: center;
+      transition:
+        color var(--transition),
+        background-color var(--transition),
+        transform var(--transition),
+        box-shadow var(--transition);
+      cursor: pointer;
+    }
+    .social-links a:hover,
+    .social-links a:focus-visible {
+      background-color: var(--color-accent);
+      color: #fff;
+      outline-offset: 4px;
+      transform: scale(1.12);
+      box-shadow: 0 0 14px rgba(31, 41, 55, 0.25);
+    }
+    .social-links svg {
+      width: 22px;
+      height: 22px;
+      stroke-width: 1.75;
+      stroke: currentColor;
+      fill: none;
+      pointer-events: none;
+    }
+
+    /* Sections */
+    section {
+      padding-top: 5rem;
+      padding-bottom: 7rem;
+      max-width: 900px;
+      margin-left: auto;
+      margin-right: auto;
+      user-select: none;
+    }
+    section h2 {
+      font-weight: 800;
+      font-size: 3rem;
+      color: var(--color-primary);
+      margin-bottom: 2rem;
+      text-align: center;
+      letter-spacing: -0.02em;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.04);
+    }
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(240px,1fr));
+      gap: 2.5rem 3rem;
+      user-select: text;
+    }
+    .card {
+      background-color: #f9fafb;
+      border-radius: var(--radius);
+      padding: 2rem 1.8rem;
+      box-shadow: 0 6px 20px rgba(31, 41, 55, 0.06);
+      transition: box-shadow var(--transition), transform var(--transition);
+      cursor: default;
+    }
+    .card:hover,
+    .card:focus-within {
+      box-shadow: 0 14px 48px rgba(31, 41, 55, 0.15);
+      transform: translateY(-6px);
+      outline: none;
+    }
+    .card h3 {
+      font-weight: 700;
+      font-size: 1.6rem;
+      color: var(--color-primary);
+      margin-bottom: 0.75rem;
+      letter-spacing: -0.01em;
+    }
+    .card p {
+      font-size: 1.1rem;
+      color: var(--color-secondary);
+      line-height: 1.5;
+      user-select: text;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 2.5rem 1rem;
+      color: var(--color-secondary);
+      font-size: 0.9rem;
+      border-top: 1px solid var(--color-border);
+      user-select: none;
+    }
+
+    /* Responsive tweaks */
+    @media (max-width: 600px) {
+      .hero h1 {
+        font-size: 3rem;
+      }
+      .profile-card {
+        max-width: 360px;
+        padding: 2.5rem 2rem 3rem 2rem;
+      }
+      section {
+        padding-top: 3.5rem;
+        padding-bottom: 5rem;
+        max-width: 95%;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .grid-3 {
+        grid-template-columns: 1fr;
+        gap: 1.8rem;
+      }
+      nav ul {
+        gap: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <nav aria-label="Primary">
+        <div class="logo" tabindex="0">Stuti Agarwal</div>
+        <ul role="list">
+          <li><a href="#about" tabindex="0">About</a></li>
+          <li><a href="#technical" tabindex="0">Technical Background</a></li>
+          <li><a href="#projects" tabindex="0">Projects</a></li>
+          <li><a href="#contact" tabindex="0">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero container" id="about" tabindex="-1" aria-labelledby="about-title" aria-describedby="about-desc">
+      <h1 id="about-title">Hi, I'm Stuti Agarwal</h1>
+      <p id="about-desc">A passionate developer crafting elegant and modern web experiences with clean, accessible code.</p>
+      <button class="btn-primary" onclick="scrollToSection('contact')">Get In Touch</button>
+    </section>
+
+    <section class="profile-card" aria-label="Profile Card">
+      <img src="D:\sample1\StutiPhoto.jpeg" alt="Profile photo of Your Name" class="profile-photo" />
+      <h2 class="profile-name">Stuti Agarwal</h2>
+      <p class="profile-title">Backend Developer & A Passionate Leader</p>
+      <p class="profile-bio">I specialize in building responsive, accessible, and beautiful websites that users love. Skilled in JavaScript, HTML5, CSS, PYTHON and modern frameworks like Django.</p>
+      <nav class="social-links" aria-label="Social Media Links">
+        <!-- Replace href values with your own social media links -->
+        <a href="https://twitter.com/" target="_blank" rel="noopener noreferrer" aria-label="Twitter" tabindex="0">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M23 3a10.9 10.9 0 01-3.14 1.53A4.48 4.48 0 0022.4.4a9.09 9.09 0 01-2.88 1.1 4.52 4.52 0 00-7.76 4.13A12.81 12.81 0 013 4.77a4.52 4.52 0 001.4 6.03 4.41 4.41 0 01-2.05-.57v.06a4.53 4.53 0 003.63 4.44 4.52 4.52 0 01-2.04.08 4.53 4.53 0 004.22 3.14A9.05 9.05 0 013 19.2a12.74 12.74 0 006.89 2.02c8.27 0 12.8-6.86 12.8-12.8 0-.2 0-.42-.02-.62A9.22 9.22 0 0023 3z"></path></svg>
+        </a>
+        <a href="https://github.com/" target="_blank" rel="noopener noreferrer" aria-label="GitHub" tabindex="0">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2a10 10 0 00-3.16 19.5c.5.1.68-.22.68-.5v-1.9c-2.78.6-3.37-1.34-3.37-1.34-.45-1.14-1.1-1.44-1.1-1.44-.9-.62.07-.6.07-.6 1 .07 1.53 1.04 1.53 1.04.9 1.53 2.37 1.1 2.95.85.1-.66.35-1.1.63-1.35-2.22-.25-4.55-1.1-4.55-4.9 0-1.1.4-2 .1-2.7 0 0 .83-.27 2.7 1a9.3 9.3 0 015 0c1.87-1.3 2.7-1 2.7-1 .26.7.1 1.6.05 2.7 0 3.83-2.35 4.6-4.57 4.85.36.3.65.9.65 1.85v2.75c0 .28.18.6.68.5A10 10 0 0012 2z"></path></svg>
+        </a>
+        <a href="https://linkedin.com/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" tabindex="0">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4.98 3.5c0 1.38-1.12 2.5-2.5 2.5S0 4.88 0 3.5A2.5 2.5 0 014.98 3.5zM.5 8.5h4.98v12H.5v-12zM7.5 8.5h4.74v1.7h.07c.66-1.25 2.3-2.55 4.45-2.55 4.75 0 5.62 3.13 5.62 7.2v8.65H17.4v-7.65c0-1.82-.03-4.17-2.54-4.17-2.55 0-2.95 2-2.95 4.05v7.78H7.47v-12z"></path></svg>
+        </a>
+        <a href="mailto:youremail@example.com" target="_blank" rel="noopener noreferrer" aria-label="Email" tabindex="0">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M1.5 4.5h21v15h-21v-15zm0 .75l9.5 7.25L20.5 5.25v12.75H3v-12.75z"></path></svg>
+        </a>
+      </nav>
+    </section>
+
+    <section class="container" id="technical" tabindex="-1" aria-labelledby="technical-title" aria-describedby="technical-desc">
+      <h2 id="technical-title">Technical Background</h2>
+      <p id="technical-desc" style="max-width:700px; margin: 0 auto 3rem; color: var(--color-secondary); text-align:center;">
+        Experienced in a broad range of technical domains including web development, programming languages, tools, and frameworks. Skilled at translating complex requirements into performant and maintainable solutions.
+      </p>
+      <div class="grid-3" role="list">
+        <article class="card" tabindex="0" aria-label="Technical Skill: JavaScript">
+          <h3>JavaScript</h3>
+          <p>Proficient in asynchronous programming, and modern frameworks/libraries like React.</p>
+        </article>
+        <article class="card" tabindex="0" aria-label="Technical Skill: CSS & HTML">
+          <h3>CSS &amp; HTML</h3>
+          <p>Learner in semantic markup, responsive design, CSS Grid, Flexbox, and modern preprocessors like Sass.</p>
+        </article>
+        <article class="card" tabindex="0" aria-label="Technical Skill: Node.js & Backend">
+          <h3>Node.js & Backend</h3>
+          <p>Collaborative building RESTful APIs, server-side logic, and working with Express and related tools.</p>
+        </article>
+        <article class="card" tabindex="0" aria-label="Technical Skill: Version Control">
+          <h3>Version Control</h3>
+          <p>Daily use of Git workflows with GitHub, branching strategies, in collaborative projects.</p>
+        </article>
+        <article class="card" tabindex="0" aria-label="Technical Skill: Testing">
+          <h3>Pyhton and Frameworks</h3>
+          <p>Knowledge of unit, integration, and libraries of Python like Pandas, Matplotlib, Sci-kit, Django and other frameworks.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="container" id="projects" tabindex="-1" aria-labelledby="projects-title">
+      <h2 id="projects-title">Projects</h2>
+      <div class="grid-3" role="list">
+        <article class="card" tabindex="0" aria-label="Project 1">
+          <h3>Project One</h3>
+          <p>I had developed a HOTEL MANAGEMENT SYSTEM using PYTHON only in which you can easily generate rent bills, shopping, food, games arena bills, and have reliable access to Number of days you stay being all information saved. The whole system is for Management People.</p>
+        </article>
+        <article class="card" tabindex="0" aria-label="Project 2">
+          <h3>Project Two</h3>
+          <p>A website coded using HTML, CSS, JS for learning patterns of Frontend.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="container" id="contact" tabindex="-1" aria-labelledby="contact-title">
+      <h2 id="contact-title">Contact Me</h2>
+      <p style="text-align:center; max-width:600px; margin: 0 auto 2rem; font-weight: 600; color: var(--color-secondary);">
+        Feel free to reach out via social media or send an email. I’m open to exciting new opportunities and collaborations.
+        LinkedIn handle : https://www.linkedin.com/in/stutibu/
+
+        Email : agarwal1407stuti@gmail.com
+      </p>
+      <div style="text-align:center;">
+        <a href="agarwal1407stuti@gmail.com" class="btn-primary" style="font-size:1.125rem; padding:1rem 2.5rem; text-decoration:none; display:inline-block; border-radius:var(--radius); user-select:none;">Send Email</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    &copy; 2025 Stuti Agarwal. All rights reserved.
+  </footer>
+
+  <script>
+    // Scroll to section by id
+    function scrollToSection(id) {
+      const el = document.getElementById(id);
+      if (el) {
+        el.focus(); // for accessibility, focus the section
+        el.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+
+    // Handle navigation link clicks for smooth scrolling with focus management
+    document.querySelectorAll('nav ul li a').forEach(link => {
+      link.addEventListener('click', e => {
+        e.preventDefault();
+        const href = link.getAttribute('href');
+        if (href && href.startsWith('#')) {
+          scrollToSection(href.slice(1));
+        }
+      });
+    });
+  </script>
+</body>
+</html>
